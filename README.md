@@ -179,7 +179,7 @@ This command will start the build of each of the services specified previously. 
 
 Run this command to check if the services are running:  
 ```
-docker-compose ps
+docker ps
 ```
 The output will be like this:  
 
@@ -203,9 +203,41 @@ Where XXXXXXXX is the URL ngrok provides. Last, check the *Let me select individ
 
 ### Demonstration  
 
+The repository must have a develop branch. Then, create a new branch. In this example, it would be develop-postgresql. This branch has a Dockerfile with the required components to create a postgresql image. It also has an image.json with the service name, the version and the type (Docker or AMI). Edit the image.json and change the version field.
+```
+{
+    "service_name": "postgresql",
+    "version": "1.4",
+    "type": "Docker"
+}
+```
+Commit changes and Compare & pull request. Make base the *develop* branch and compare *develop-postgresql*. Create the Pull Request. Via *Settings -> Webhooks* you can check the PR Webhook. It will look like this:  
 
+![][6]  
+**Figure 6**. First Webhook 
+
+Since the PR was not a merge, the endpoint returned *Pull request is not merged*.  
+
+Let's merge the PR. Go to the PR and click *Merge pull request*. Run *docker ps* and you can see a new process. This one is creating the artifact with the Dockerfile in the branch.  
+
+![][7]  
+**Figure 7**. Docker creating the artifact    
+
+![][8]  
+**Figure 8**. Merged Pull Request 
+
+Finally, to check if the artifact was pushed to the registry, use the Host Machine as the Docker Client. In this case, a Windows 10 Home PC. First, go to the certs folder and install the ***domain.crt*** file to be able to use the registry. Then,open the terminal and run:  
+```
+docker pull 192.168.99.100:5000/postgresql:1.4
+```  
+
+![][9]  
+**Figure 9**. Registry with the created artifact 
+
+As you can see, the newer artifact was pushed to the registry (192.168.99.100:5000) and the Docker Client could pull it. 
 
 ### Issues  
+There were two major issues developing the infrastructure. First of all, this exam was developed using Windows, so it was neccesary to install Docker Toolbox for Windows 10. Then, the Docker machine had problems regarding its DNS Server, so the Docker machine, the DNS Server was changed in the */etc/resolv.conf* file with the 8.8.8.8 DNS. Second of all, to be able to use a registry server, SSL certificates had to be created, so OpenSSL was installed to create them.  Then, the Docker clients that would use the registry, had to install the certificates (Windows) or place them in a proper folder (Linux Based OS).  
 
 ### References  
 * https://hub.docker.com/_/registry/
@@ -214,9 +246,15 @@ Where XXXXXXXX is the URL ngrok provides. Last, check the *Let me select individ
 * https://developer.github.com/v3/guides/building-a-ci-server/
 * http://flask.pocoo.org/
 * https://connexion.readthedocs.io/en/latest/  
+* https://docs.docker.com/toolbox/toolbox_install_windows/  
+
 
 [1]: images/deploy_diagram.png  
 [2]: images/01_docker_compose_up.PNG	
 [3]: images/02_docker_ps.PNG  
 [4]: images/03_ngrok.PNG  
 [5]: images/04_webhook.PNG	
+[6]: images/05_pr_not_valid.PNG 
+[7]: images/06_docker_ps_pr.PNG 
+[8]: images/07_merge.PNG  
+[9]: images/09_registry_ok.PNG
