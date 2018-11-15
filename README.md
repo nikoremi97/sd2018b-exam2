@@ -164,13 +164,59 @@ First of all, the method begins by taking the HTTP Request content in a JSON for
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80)
 ```
-Finally, the flask application runs int the port 80 and listens to any IP address.
+Finally, the flask application runs int the port 80 and listens to any IP address.  
+
+### Deployment  
+
+Run the following command in the repository folder:
+```
+docker-compose up -d
+```
+This command will start the build of each of the services specified previously. It has the -d parameter to run in background. When the services are deployed, you will get an output like this:  
+
+![][2]  
+**Figure 2**. Docker Containers created      
+
+Run this command to check if the services are running:  
+```
+docker-compose ps
+```
+The output will be like this:  
+
+![][3]  
+**Figure 3**. Docker services running  
+
+After that, go to the Ngrok Web UI via browser. To do this, go to localhost:4040. If you are using Windows, put the Docker Machine's port and the 4040 port. To know the Docker Machine's IP, run *docker-machine env*.  
+
+![][4]  
+**Figure 4**. Ngrok running  
+
+Finally, let's create the Github webhook. In the repository, go to *Settings -> Webhooks*. Add a webhook and put in the Payload URL the URL that ngrok provides with the endpoint. The application endpoint is located at */abueno/exam2/api/v1/images*. So, for example, the resulting Payload URL will look like this:  
+
+```
+http://XXXXXXXX.ngrok.io/abueno/exam2/api/v1/images
+```
+Where XXXXXXXX is the URL ngrok provides. Last, check the *Let me select individual events* and check *Pull requests*.  
+
+![][5]  
+**Figure 5**. Github Webhook with Ngrok   
+
+### Demonstration  
 
 
 
 ### Issues  
 
 ### References  
+* https://hub.docker.com/_/registry/
+* https://hub.docker.com/_/docker/
+* https://docker-py.readthedocs.io/en/stable/index.html
+* https://developer.github.com/v3/guides/building-a-ci-server/
+* http://flask.pocoo.org/
+* https://connexion.readthedocs.io/en/latest/  
 
-
-[1]: images/deploy_diagram.png    
+[1]: images/deploy_diagram.png  
+[2]: images/01_docker_compose_up.PNG	
+[3]: images/02_docker_ps.PNG  
+[4]: images/03_ngrok.PNG  
+[5]: images/04_webhook.PNG	
