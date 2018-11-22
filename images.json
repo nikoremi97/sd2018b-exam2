@@ -1,14 +1,7 @@
-{
-  "images": [
-	  {
-	        "service_name": "flask",
-	 	"version": "1.0",
-		"type": "Docker"
-	  	},
-	  {
-		"service_name": "nmap",
-		"version": "1.0",
-		"type": "Docker"
-		}
-  	]
-}
+[
+        {
+                "service_name": "redis",
+                "version": "1.0",
+                "type": "Docker"
+        }
+]
