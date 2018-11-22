@@ -1,6 +1,6 @@
 [
         {
-                "service_name": "redis",
+                "service_name": "flask",
                 "version": "1.0",
                 "type": "Docker"
         }
