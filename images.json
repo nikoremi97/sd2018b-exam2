@@ -1,12 +1,12 @@
 {
   "images": [
 	  {
-	        "service_name": "hello-world",
+	        "service_name": "flask",
 	 	"version": "1.0",
 		"type": "Docker"
 	  	},
 	  {
-		"service_name": "amazonlinux",
+		"service_name": "nmap",
 		"version": "1.0",
 		"type": "Docker"
 		}
