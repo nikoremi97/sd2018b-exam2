@@ -1,0 +1,14 @@
+{
+  "images": [
+	  {
+	  "service_name": "hello-world",
+	 	"version": "1.0",
+		"type": "Docker"
+	  },
+	  {
+		"service_name": "amazonlinux",
+		"version": "1.0",
+		"type": "Docker"
+		}
+  	]
+}
