@@ -1,5 +1,5 @@
 {
-    "service_name": "httpd",
+    "service_name": "flask",
     "version": "1.4",
     "type": "Docker"
 }
