@@ -11,7 +11,7 @@ services:
           - ./certs:/certs
           - ./data:/data
         ports:
-            - '443:443'
+            - '5000:5000'
     ci_server:
         build: ci_server
         container_name: ci_server
